@@ -56,13 +56,23 @@ for (col in variables) {
 
 #GLM
 # Make a binary response variable
-combined$binary <- ifelse(combined$type %in% c("chosen", "control"), 1, 0)
+combined$chosen <- ifelse(combined$type %in% c("real", "predated"), 1, 0)
 
-# Fit the logistic regression
-complete <- glm(binary ~ incline,
+incline <- glm(chosen ~ incline,
+               data = combined, family = binomial)
+summary(incline)
+
+veg <- glm(chosen ~ veg_soil + veg_grass + veg_herb + veg_org,
                 data = combined, family = binomial)
+summary(veg_soil)
 
+canope <- glm(chosen ~ canope_cover,
+              data = combined, family = binomial)
+summary(canope)
+
+complete <- glm(chosen ~ incline + veg_soil + veg_grass + veg_herb + veg_org + canope_cover,
+                data = combined, family = binomial)
 summary(complete)
 
-
-
+library(car)
+vif(complete)
