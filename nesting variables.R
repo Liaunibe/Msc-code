@@ -17,18 +17,12 @@ sites <- sites %>%
 
 # convert everything into the right ... category?
 sites$date <- dmy(sites$date)
-sites$time <- as.numeric(sites$time)
 sites$site <- as.factor(sites$site)
 sites$type <- as.factor(trimws(sites$type))
-sites$weather <- ifelse(sites$weather == "", NA, sites$weather)
-sites$weather <- as.factor(sites$weather)
-sites$veg_scrub <- as.numeric(sites$veg_scrub)
 sites$duration <- as.numeric(sites$duration)
-sites$soil_surface_temperature <- as.numeric(sites$soil_surface_temperature)
 sites$moisture <- as.numeric(sites$moisture)  
 sites$pH <- as.numeric(sites$pH)
 sites$incline <- as.numeric(sites$incline)
-sites$canope_cover <- as.numeric(sites$canope_cover)
 
 str(sites)
 
