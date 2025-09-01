@@ -1,6 +1,6 @@
 ### Msc Thesis Olivia###
-### 'Nesting ecology of the incasive pond turtle Trachemys scripta' ###
-### Code to analyse nest site variables and sex ratio ###
+### 'Nesting ecology of the invasive pond turtle Trachemys scripta' ###
+### Code to analyse nest site variables ###
 
 library(ggplot2)
 library(dplyr)
@@ -39,8 +39,7 @@ list(veg_total)
 ## EDA
 summary(sites)
 
-#compare chosen and control groups
-
+#Compare chosen and control groups
 chosen <- sites %>% filter(type %in% c("real", "predated"))
 control <- sites %>% filter(type == "control")
 
@@ -50,7 +49,7 @@ combined <- rbind(chosen, control)
 
 variables <- c("incline", "veg_soil", "veg_grass", "veg_herb", "veg_org", "canope_cover")
 
-# Loop through numeric variables
+# Histogramms to compare distributions
 for (col in variables) {
   p <- ggplot(combined, aes_string(x = col, fill = "group")) +
     geom_histogram(alpha = 0.5, position = 'dodge') +
@@ -60,5 +59,16 @@ for (col in variables) {
     xlab(col) 
   print(p)
 }
+
+#GLM
+# Make a binary response variable
+combined$binary <- ifelse(combined$type %in% c("chosen", "control"), 1, 0)
+
+# Fit the logistic regression
+complete <- glm(binary ~ incline + veg_soil + veg_grass + veg_herb + veg_org + canope_cover,
+                    data = combined, family = binomial)
+
+summary(complete)
+
 
 
