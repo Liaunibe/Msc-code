@@ -89,7 +89,8 @@ ggplot() +
         y = "Temperature (°C)",
         color = "Logger Position") +
    scale_color_manual(values = c("Top" = "orange", "Bottom" = "darkred")) +
-   theme(legend.position = "top") +
+   theme(legend.position = "top",
+         plot.title = element_text(size = 50), face= "bold") +
    theme_minimal()
  
  # Mositure plot

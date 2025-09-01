@@ -59,7 +59,7 @@ for (col in variables) {
 combined$binary <- ifelse(combined$type %in% c("chosen", "control"), 1, 0)
 
 # Fit the logistic regression
-complete <- glm(binary ~ incline + veg_soil + veg_grass + veg_herb + veg_org + canope_cover,
+complete <- glm(binary ~ incline,
                 data = combined, family = binomial)
 
 summary(complete)
